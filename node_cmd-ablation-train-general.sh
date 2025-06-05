@@ -74,7 +74,7 @@ else
 fi
 
 unset BEAKER_NODE_HOSTNAME # this node is set to the node that builds the image, not the node that runs the job
-
+export BEAKER_NODE_HOSTNAME=$HOSTNAME
 script_path="./src/scripts/train/$PYTHON_SCRIPT.py"
 script_args="train $TAG $CLUSTER "
 # script_path="${WORKSPACE_DIR}/Megatron-LM/scripts/min_torchrun.py"
