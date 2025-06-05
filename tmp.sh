@@ -1,1 +1,1 @@
-bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/beaker_jobs/01JWZJCHCS7G50BEWWNBC0PY6Q/hostfile /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-ablation-wsd-arctic
+bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-ablation-wsd-arctic

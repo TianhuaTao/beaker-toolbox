@@ -69,6 +69,7 @@ if [[ $(hostname) == *"augusta"* ]]; then
     CLUSTER="ai2/augusta-google-1"
     export NCCL_NET=FasTrak
     export NCCL_DEBUG=DEBUG 
+    export LD_LIBRARY_PATH=/var/lib/tcpxo/lib64:$LD_LIBRARY_PATH
 else
     CLUSTER="ai2/jupiter-cirrascale-2"
     export OLMO_SHARED_FS=1 # shared fs
