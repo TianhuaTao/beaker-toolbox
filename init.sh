@@ -22,6 +22,9 @@ rm /workspace/beaker_jobs/$BEAKER_WORKLOAD_ID/$BEAKER_REPLICA_RANK.$HOSTNAME
 HOSTFILE=/workspace/beaker_jobs/$BEAKER_WORKLOAD_ID/hostfile
 TIMESTAMP_FILE=/workspace/beaker_jobs/$BEAKER_WORKLOAD_ID/latest-timestamp.txt
 
+cp $HOSTFILE /workspace/hostfile
+cp $TIMESTAMP_FILE /workspace/latest-timestamp.txt
+
 # read the latest timestamp from the file
 if [ -f $TIMESTAMP_FILE ]; then
     LATEST_TIMESTAMP=$(cat $TIMESTAMP_FILE)
