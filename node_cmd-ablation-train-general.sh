@@ -67,6 +67,8 @@ TAG=$PYTHON_SCRIPT # use the same
 # if "google" in hostname
 if [[ $(hostname) == *"augusta"* ]]; then
     CLUSTER="ai2/augusta-google-1"
+    export NCCL_NET=FasTrak
+    export NCCL_DEBUG=DEBUG 
 else
     CLUSTER="ai2/jupiter-cirrascale-2"
     export OLMO_SHARED_FS=1 # shared fs
