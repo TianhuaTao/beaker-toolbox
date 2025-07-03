@@ -68,7 +68,7 @@ TAG=$PYTHON_SCRIPT # use the same
 if [[ $(hostname) == *"augusta"* ]]; then
     CLUSTER="ai2/augusta-google-1"
     export NCCL_NET=FasTrak
-    export NCCL_DEBUG=DEBUG 
+    export NCCL_DEBUG=INFO 
     export LD_LIBRARY_PATH=/var/lib/tcpxo/lib64:$LD_LIBRARY_PATH
 else
     CLUSTER="ai2/jupiter-cirrascale-2"
