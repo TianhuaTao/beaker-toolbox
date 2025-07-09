@@ -24,7 +24,12 @@ echo "HOSTFILE: $HOSTFILE"
 cat $HOSTFILE
 echo "REMOTEPATH: $REMOTEPATH"
 
+cd /workspace/OLMo-core
+git commit -am "tmp commit to update OLMo-core"
+git push
+sleep 2
 
+cd /workspace
 
 if [[ ! -f "$HOSTFILE" ]]; then
   echo "Error: host file '$HOSTFILE' not found."
@@ -50,10 +55,10 @@ while IFS= read -r HOST; do
   #
   # Putting '&' at the end runs the ssh command in the background locally.
   # Use -n with SSH -n tells SSH to redirect its standard input from /dev/null, so it cannot eat your local script’s input
-  ssh -n -p 30255 -o StrictHostKeyChecking=no "$HOST" "$REMOTEPATH $index '$HOSTFILE' '$TIMESTAMP' $EXTRA_ARGS " 2>&1 | sed "s/^/[$HOST - $index] /" &
+  ssh -n -p 30255 -o StrictHostKeyChecking=no "$HOST" "$REMOTEPATH $index '$HOSTFILE' '$TIMESTAMP' $EXTRA_ARGS " 2>&1 | sed "s/^/[$HOST - $index] /"    &
 #   echo "ssh return code: $?"
 #   echo "Submitted remote script on host '$HOST' with index=$index."
-
+# | tee "${HOST//[^a-zA-Z0-9_]/_}-${TIMESTAMP}.log"
   ((index++))
 
 done < "$HOSTFILE"

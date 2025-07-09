@@ -11,9 +11,10 @@ NUM_NODES=$(wc -l < ${HOST_FILE_PATH})
 
 echo $SLURM_NODEID $HOST_FILE_PATH $NUM_NODES
 
+ulimit -n 65536
 
 ############## High-level configs ############## BEGIN
-NODE_NETWORK_TYPE="eth"
+# NODE_NETWORK_TYPE="eth"
 NUM_GPUS_PER_WORKER=8
 USE_PROFILE=0
 ############## High-level configs ############## END
@@ -49,14 +50,16 @@ USE_PROFILE=0
 
 
 export WANDB_API_KEY=61753d825c2bec08062290674ce9e3585bf31db3
-export WANDB_API_KEY=61753d825c2bec08062290674ce9e3585bf31db3 
 export WEKA_PROFILE=weka 
 export WEKA_ENDPOINT_URL=https://weka-aus.beaker.org:9000
 export OLMO_NUM_NODES_ENV_VAR=$NUM_NODES
 
 cd ${WORKSPACE_DIR}/OLMo-core
 
+git pull
+
 pip install -e .[all]
+pip install -U ai2-olmo-eval
 
 port=24759
 
@@ -68,7 +71,7 @@ TAG=$PYTHON_SCRIPT # use the same
 if [[ $(hostname) == *"augusta"* ]]; then
     CLUSTER="ai2/augusta-google-1"
     export NCCL_NET=FasTrak
-    export NCCL_DEBUG=INFO 
+    # export NCCL_DEBUG=INFO 
     export LD_LIBRARY_PATH=/var/lib/tcpxo/lib64:$LD_LIBRARY_PATH
 else
     CLUSTER="ai2/jupiter-cirrascale-2"
