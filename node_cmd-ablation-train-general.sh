@@ -15,7 +15,7 @@ echo $SLURM_NODEID $HOST_FILE_PATH $NUM_NODES
 ############## High-level configs ############## BEGIN
 NODE_NETWORK_TYPE="eth"
 NUM_GPUS_PER_WORKER=8
-USE_PROFILE=0
+USE_PROFILE=1
 ############## High-level configs ############## END
 
 # if [ $NODE_NETWORK_TYPE == "ib" ]; then
@@ -49,7 +49,6 @@ USE_PROFILE=0
 
 
 export WANDB_API_KEY=61753d825c2bec08062290674ce9e3585bf31db3
-export WANDB_API_KEY=61753d825c2bec08062290674ce9e3585bf31db3 
 export WEKA_PROFILE=weka 
 export WEKA_ENDPOINT_URL=https://weka-aus.beaker.org:9000
 export OLMO_NUM_NODES_ENV_VAR=$NUM_NODES
