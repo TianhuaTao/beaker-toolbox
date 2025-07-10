@@ -55,6 +55,8 @@ export OLMO_NUM_NODES_ENV_VAR=$NUM_NODES
 
 cd ${WORKSPACE_DIR}/OLMo-core
 
+git pull
+
 pip install -e .[all]
 pip install -U ai2-olmo-eval
 
