@@ -57,6 +57,7 @@ export OLMO_NUM_NODES_ENV_VAR=$NUM_NODES
 cd ${WORKSPACE_DIR}/OLMo-core
 
 pip install -e .[all]
+pip install -U ai2-olmo-eval
 
 port=24759
 
@@ -68,7 +69,7 @@ TAG=$PYTHON_SCRIPT # use the same
 if [[ $(hostname) == *"augusta"* ]]; then
     CLUSTER="ai2/augusta-google-1"
     export NCCL_NET=FasTrak
-    export NCCL_DEBUG=INFO 
+    # export NCCL_DEBUG=INFO 
     export LD_LIBRARY_PATH=/var/lib/tcpxo/lib64:$LD_LIBRARY_PATH
 else
     CLUSTER="ai2/jupiter-cirrascale-2"
