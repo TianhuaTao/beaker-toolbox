@@ -50,10 +50,10 @@ while IFS= read -r HOST; do
   #
   # Putting '&' at the end runs the ssh command in the background locally.
   # Use -n with SSH -n tells SSH to redirect its standard input from /dev/null, so it cannot eat your local script’s input
-  ssh -n -p 30255 -o StrictHostKeyChecking=no "$HOST" "$REMOTEPATH $index '$HOSTFILE' '$TIMESTAMP' $EXTRA_ARGS " 2>&1 | sed "s/^/[$HOST - $index] /" | tee "${HOST//[^a-zA-Z0-9_]/_}-${TIMESTAMP}.log"   &
+  ssh -n -p 30255 -o StrictHostKeyChecking=no "$HOST" "$REMOTEPATH $index '$HOSTFILE' '$TIMESTAMP' $EXTRA_ARGS " 2>&1 | sed "s/^/[$HOST - $index] /"    &
 #   echo "ssh return code: $?"
 #   echo "Submitted remote script on host '$HOST' with index=$index."
-
+# | tee "${HOST//[^a-zA-Z0-9_]/_}-${TIMESTAMP}.log"
   ((index++))
 
 done < "$HOSTFILE"
