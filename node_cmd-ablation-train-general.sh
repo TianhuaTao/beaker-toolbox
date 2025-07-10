@@ -13,9 +13,9 @@ echo $SLURM_NODEID $HOST_FILE_PATH $NUM_NODES
 
 
 ############## High-level configs ############## BEGIN
-NODE_NETWORK_TYPE="eth"
+# NODE_NETWORK_TYPE="eth"
 NUM_GPUS_PER_WORKER=8
-USE_PROFILE=1
+USE_PROFILE=0
 ############## High-level configs ############## END
 
 # if [ $NODE_NETWORK_TYPE == "ib" ]; then
