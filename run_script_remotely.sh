@@ -24,7 +24,12 @@ echo "HOSTFILE: $HOSTFILE"
 cat $HOSTFILE
 echo "REMOTEPATH: $REMOTEPATH"
 
+cd /workspace/OLMo-core
+git commit -am "tmp commit to update OLMo-core"
+git push
+sleep 2
 
+cd /workspace
 
 if [[ ! -f "$HOSTFILE" ]]; then
   echo "Error: host file '$HOSTFILE' not found."
