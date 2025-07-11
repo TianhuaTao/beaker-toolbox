@@ -21,3 +21,7 @@ pip3 install --no-build-isolation git+https://github.com/NVIDIA/TransformerEngin
 while read -r host; do
     scp -P30255 /workspace/OLMo-core/src/scripts/train/OLMoE3-dev-32l-jul10-gcp.py "$host:/workspace/OLMo-core/src/scripts/train/OLMoE3-dev-32l-jul10-gcp.py"
 done < /workspace/hostfile
+
+while read -r host; do
+    scp -P30255 /workspace/hostfile "$host:/workspace/hostfile"
+done < /workspace/hostfile
