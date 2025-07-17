@@ -1,3 +1,7 @@
+bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile1 /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-ablation-16L-A
+bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile1B /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-ablation-16L-B
+
+
 bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-dev-32l-jul10-gcp
 bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-dev-32l-jul10-gcp-s1
 bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-dev-48l-jul10-gcp-s1
