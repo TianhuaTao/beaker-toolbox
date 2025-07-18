@@ -1,5 +1,8 @@
-bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile1 /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-ablation-16L-A
-bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile1B /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-ablation-16L-B
+bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile2 /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-ablation-16L-A
+bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile4 /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-ablation-16L-A-small-lr-experts
+bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile4B /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-ablation-16L-B
+bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile4C /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-ablation-16L-C
+bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile8A /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-ablation-16L-A-orth
 
 
 bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-dev-32l-jul10-gcp
@@ -11,7 +14,7 @@ kill -9 $(ps aux | grep -e "train/OLMoE3-" -e "nsys" | grep -v grep | awk '{prin
 
 while read -r host; do
     ssh -p30255 -o "StrictHostKeyChecking no" "$host" "kill -9 \$(ps aux | grep -e "train/OLMoE3-" -e "nsys" | grep -v grep | awk '{print \$2}')" &
-done < /workspace/hostfile
+done < /workspace/hostfile4
 
 
 while read -r host; do
