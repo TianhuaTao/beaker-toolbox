@@ -20,3 +20,7 @@ done < /workspace/hostfile4
 while read -r host; do
     ssh -p30255 -o "StrictHostKeyChecking no" "$host" "ulimit -n" &
 done < /workspace/hostfile
+
+# STEP=103000
+# gcloud storage mv gs://ai2-llm/checkpoints/OLMo3-moe-integrationtest-5-32L-lbl-fix/OLMo3-moe-integrationtest-5-32L-lbl-fix_2048d_32L2560M2560S_64E4K_dev/step${STEP}  gs://ai2-llm/checkpoints/OLMo3-moe-integrationtest-5-32L-lbl-fix-decay2/OLMo3-moe-integrationtest-5-32L-lbl-fix_2048d_32L2560M2560S_64E4K_dev/step${STEP}
+
