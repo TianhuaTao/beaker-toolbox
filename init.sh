@@ -37,7 +37,7 @@ cd /workspace
 rm -rf /workspace/OLMo-core
 git clone git@github.com:allenai/OLMo-core.git
 cd /workspace/OLMo-core
-git checkout tianhua/olmoe-dev
+git checkout tianhua/olmoe-dev-v2
 
 cd /workspace
 

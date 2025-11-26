@@ -16,6 +16,8 @@ if [ -z "$BEAKER_LEADER_REPLICA_HOSTNAME" ]; then
     BEAKER_LEADER_REPLICA_HOSTNAME=$HOSTNAME
 fi
 
+rm /workspace # remove weka link
+
 cd /workspace
 git clone git@github.com:TianhuaTao/beaker-toolbox.git
 bash /workspace/beaker-toolbox/init.sh
