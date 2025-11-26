@@ -7,6 +7,8 @@ echo "BEAKER_WORKLOAD_ID" $BEAKER_WORKLOAD_ID
 echo "BEAKER_REPLICA_RANK" $BEAKER_REPLICA_RANK
 echo "BEAKER_LEADER_REPLICA_HOSTNAME" $BEAKER_LEADER_REPLICA_HOSTNAME
 
+rm /workspace # remove weka link
+
 mkdir -p /workspace/beaker_jobs/$BEAKER_WORKLOAD_ID
 
 touch /workspace/beaker_jobs/$BEAKER_WORKLOAD_ID/$BEAKER_REPLICA_RANK.$HOSTNAME
@@ -16,7 +18,6 @@ if [ -z "$BEAKER_LEADER_REPLICA_HOSTNAME" ]; then
     BEAKER_LEADER_REPLICA_HOSTNAME=$HOSTNAME
 fi
 
-rm /workspace # remove weka link
 
 cd /workspace
 git clone git@github.com:TianhuaTao/beaker-toolbox.git
