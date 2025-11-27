@@ -63,7 +63,7 @@ cd ${WORKSPACE_DIR}/OLMo-core
 git pull
 
 pip install -e .[all]
-pip install -U liger-kernel==0.6.2
+# pip install -U liger-kernel==0.6.2
 # pip install -U ai2-olmo-eval
 
 port=24759
@@ -75,9 +75,9 @@ TAG=$PYTHON_SCRIPT # use the same
 # if "google" in hostname
 if [[ $(hostname) == *"augusta"* ]]; then
     CLUSTER="ai2/augusta"
-    export NCCL_NET=FasTrak
+    # export NCCL_NET=FasTrak
     # export NCCL_DEBUG=INFO 
-    export LD_LIBRARY_PATH=/var/lib/tcpxo/lib64:$LD_LIBRARY_PATH
+    # export LD_LIBRARY_PATH=/var/lib/tcpxo/lib64:$LD_LIBRARY_PATH
 else
     CLUSTER="ai2/jupiter"
     export OLMO_SHARED_FS=1 # shared fs
@@ -102,7 +102,7 @@ if [ $USE_PROFILE -eq 1 ]; then
         torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20186 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
         
 else
-        run_cmd="${OPTIONS_NCCL} ${OTHER_OPTIONS} torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
+        run_cmd="${OPTIONS_NCCL} ${OTHER_OPTIONS} ${OLMO_OPTION} torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20186 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
 fi
 
 echo ${run_cmd}

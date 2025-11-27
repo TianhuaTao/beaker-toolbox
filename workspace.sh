@@ -4,3 +4,6 @@ bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile /works
 while read -r host; do
     ssh -p30255 -o "StrictHostKeyChecking no" "$host" "pkill -9 -f \"train/OLMoE3-\"" &
 done < /workspace/hostfile
+
+
+pkill -9 -f "train/OLMoE3-"
