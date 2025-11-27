@@ -62,7 +62,7 @@ cd ${WORKSPACE_DIR}/OLMo-core
 
 git pull
 
-pip install -e .[all]
+# pip install -e .[all]
 # pip install -U liger-kernel==0.6.2
 # pip install -U ai2-olmo-eval
 
@@ -76,7 +76,7 @@ TAG=$PYTHON_SCRIPT # use the same
 if [[ $(hostname) == *"augusta"* ]]; then
     CLUSTER="ai2/augusta"
     export NCCL_NET=FasTrak
-    export NCCL_DEBUG=INFO 
+    export NCCL_DEBUG=DEBUG 
     export LD_LIBRARY_PATH=/var/lib/tcpxo/lib64:$LD_LIBRARY_PATH
 else
     CLUSTER="ai2/jupiter"
