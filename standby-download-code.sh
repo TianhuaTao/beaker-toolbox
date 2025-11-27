@@ -1,3 +1,5 @@
+set -x
+
 service ssh start
 
 
