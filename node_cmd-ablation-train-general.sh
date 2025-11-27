@@ -54,11 +54,15 @@ export WEKA_PROFILE=weka
 export WEKA_ENDPOINT_URL=https://weka-aus.beaker.org:9000
 export OLMO_NUM_NODES_ENV_VAR=$NUM_NODES
 
+# cd ${WORKSPACE_DIR}/beaker-toolbox
+
+# git pull
+
 cd ${WORKSPACE_DIR}/OLMo-core
 
 git pull
 
-# pip install -e .[all]
+pip install -e .[all]
 # pip install -U ai2-olmo-eval
 
 port=24759

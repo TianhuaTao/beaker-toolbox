@@ -29,6 +29,11 @@ cd /workspace/OLMo-core
 # git push
 # sleep 2
 
+# update beaker-toolbox
+cd ${WORKSPACE_DIR}/beaker-toolbox
+git commit -am "tmp commit to update beaker-toolbox"
+git push
+
 cd /workspace
 
 if [[ ! -f "$HOSTFILE" ]]; then
@@ -49,6 +54,9 @@ while IFS= read -r HOST; do
 
   # cp hostfile to remote host
   scp -P30255 -o StrictHostKeyChecking=no $HOSTFILE "$HOST:$HOSTFILE"
+
+  # download latest beaker-toolbox
+  ssh -n -p 30255 -o StrictHostKeyChecking=no "$HOST" "cd ${WORKSPACE_DIR}/beaker-toolbox && git pull"
 
   # Run the remote script in the background, streaming its output locally.
   # - The remote script is assumed to already exist at $REMOTEPATH on the remote machine.
