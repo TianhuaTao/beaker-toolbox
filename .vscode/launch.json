@@ -1,0 +1,25 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "olmo-core debug",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "/usr/local/bin/torchrun",
+            "console": "integratedTerminal",
+            "args": "--nproc-per-node=4 /workspace/OLMo-core/src/scripts/train/OLMoE3-nov25.py train OLMoE3-nov25 ai2/augusta",
+
+            "cwd": "/workspace/OLMo-core",
+            "env": {
+                "WANDB_API_KEY": "61753d825c2bec08062290674ce9e3585bf31db3",
+                "TORCHINDUCTOR_COMPILE_THREADS": "2",
+                },
+            "justMyCode": false,
+
+        },
+    ]
+}
