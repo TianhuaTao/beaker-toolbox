@@ -16,7 +16,7 @@ ulimit -n 65536
 ############## High-level configs ############## BEGIN
 # NODE_NETWORK_TYPE="eth"
 NUM_GPUS_PER_WORKER=8
-USE_PROFILE=0
+USE_PROFILE=1
 ############## High-level configs ############## END
 
 # if [ $NODE_NETWORK_TYPE == "ib" ]; then
