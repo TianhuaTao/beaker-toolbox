@@ -108,4 +108,4 @@ fi
 
 echo ${run_cmd}
 
-eval ${run_cmd} 2>&1
+eval ${run_cmd} 2>&1 | tee /workspace/logs_${SLURM_NODEID}_${TAG}_${TIMESTAMP}.txt
