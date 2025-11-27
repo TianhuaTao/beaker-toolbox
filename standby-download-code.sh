@@ -18,9 +18,10 @@ if [ -z "$BEAKER_LEADER_REPLICA_HOSTNAME" ]; then
     BEAKER_LEADER_REPLICA_HOSTNAME=$HOSTNAME
 fi
 
-ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+# ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
 cd /workspace
+rm -rf beaker-toolbox
 git clone git@github.com:TianhuaTao/beaker-toolbox.git
 bash /workspace/beaker-toolbox/init.sh
 
