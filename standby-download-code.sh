@@ -23,8 +23,8 @@ fi
 # ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
 cd /workspace
-rm -rf beaker-toolbox
-git clone git@github.com:TianhuaTao/beaker-toolbox.git
+# rm -rf beaker-toolbox
+# git clone git@github.com:TianhuaTao/beaker-toolbox.git
 bash /workspace/beaker-toolbox/init.sh
 
 
