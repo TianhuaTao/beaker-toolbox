@@ -63,6 +63,7 @@ cd ${WORKSPACE_DIR}/OLMo-core
 git pull
 
 pip install -e .[all]
+pip install -U liger-kernel==0.6.2
 # pip install -U ai2-olmo-eval
 
 port=24759
