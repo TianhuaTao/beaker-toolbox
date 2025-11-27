@@ -25,9 +25,9 @@ cat $HOSTFILE
 echo "REMOTEPATH: $REMOTEPATH"
 
 cd /workspace/OLMo-core
-git commit -am "tmp commit to update OLMo-core"
-git push
-sleep 2
+# git commit -am "tmp commit to update OLMo-core"
+# git push
+# sleep 2
 
 cd /workspace
 

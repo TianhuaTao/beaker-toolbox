@@ -58,8 +58,8 @@ cd ${WORKSPACE_DIR}/OLMo-core
 
 git pull
 
-pip install -e .[all]
-pip install -U ai2-olmo-eval
+# pip install -e .[all]
+# pip install -U ai2-olmo-eval
 
 port=24759
 
@@ -88,16 +88,14 @@ script_args="train $TAG $CLUSTER "
 
 # run_cmd=${report_mem_cmd}
 if [ $USE_PROFILE -eq 1 ]; then
-        run_cmd="${OPTIONS_NCCL} ${OTHER_OPTIONS} NSYS_ENABLE_PYTHON_SOURCE_CORRELATION=1 nsys profile \
-        -t nvtx,cuda,osrt,cublas,cudnn \
-        --sample=process-tree \
-        --cuda-event-trace=false \
+        run_cmd=" ${OPTIONS_NCCL} ${OTHER_OPTIONS} ${OLMO_OPTION} nsys profile \
+        -t nvtx,cuda \
         --capture-range=cudaProfilerApi \
         --capture-range-end=stop \
         --force-overwrite true \
-        --trace-fork-before-exec='true' \
         -o /workspace/prof_${SLURM_NODEID}_${TAG} \
-        torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
+        torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20186 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
+        
 else
         run_cmd="${OPTIONS_NCCL} ${OTHER_OPTIONS} torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
 fi
