@@ -16,4 +16,4 @@ torchrun --nproc-per-node=8 OLMo-core/src/scripts/train/OLMoE3-nov25.py train OL
 nsys profile -t nvtx,cuda --capture-range=cudaProfilerApi --force-overwrite=true --output OLMoE3-nov25.nsys-rep torchrun --nproc-per-node=8 OLMo-core/src/scripts/train/OLMoE3-nov25.py train OLMoE3-nov25 ai2/augusta
 
 
-scp -P30255 root@augusta-gcp-292:/workspace/prof_2_OLMoE3-nov25.nsys-rep ./
+scp -P30255 root@augusta-gcp-299:/workspace/prof_5_OLMoE3-nov25.nsys-rep ./
