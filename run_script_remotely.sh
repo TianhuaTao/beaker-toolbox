@@ -45,7 +45,6 @@ TIMESTAMP=$(date '+%Y%m%d-%H%M%S')
 
 # We'll keep an index that increments for each valid host
 index=0
-
 while IFS= read -r HOST; do
   # Skip empty lines or lines starting with '#' (comment)
   [[ -z "$HOST" || "$HOST" =~ ^# ]] && continue
@@ -57,7 +56,11 @@ while IFS= read -r HOST; do
 
   # download latest beaker-toolbox
   ssh -n -p 30255 -o StrictHostKeyChecking=no "$HOST" "cd ${WORKSPACE_DIR}/beaker-toolbox && git pull"
+  ((index++))
+done < "$HOSTFILE"
 
+index=0
+while IFS= read -r HOST; do
   # Run the remote script in the background, streaming its output locally.
   # - The remote script is assumed to already exist at $REMOTEPATH on the remote machine.
   # - We pass two arguments: (1) index, (2) the hostfile path.
