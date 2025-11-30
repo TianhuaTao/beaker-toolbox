@@ -49,7 +49,7 @@ while IFS= read -r HOST; do
   # Skip empty lines or lines starting with '#' (comment)
   [[ -z "$HOST" || "$HOST" =~ ^# ]] && continue
 
-  echo "Starting remote script on host '$HOST' with index=$index ..."
+  echo "Prepare script on host '$HOST' with index=$index ..."
 
   # cp hostfile to remote host
   scp -P30255 -o StrictHostKeyChecking=no $HOSTFILE "$HOST:$HOSTFILE"
@@ -61,6 +61,11 @@ done < "$HOSTFILE"
 
 index=0
 while IFS= read -r HOST; do
+  # Skip empty lines or lines starting with '#' (comment)
+  [[ -z "$HOST" || "$HOST" =~ ^# ]] && continue
+
+  echo "Starting remote script on host '$HOST' with index=$index ..."
+
   # Run the remote script in the background, streaming its output locally.
   # - The remote script is assumed to already exist at $REMOTEPATH on the remote machine.
   # - We pass two arguments: (1) index, (2) the hostfile path.
