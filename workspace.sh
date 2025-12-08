@@ -5,6 +5,9 @@ while read -r host; do
     ssh -p30255 -o "StrictHostKeyChecking no" "$host" "pkill -9 -f \"train/OLMoE3-\"" &
 done < /workspace/hostfile
 
+while read -r host; do
+    ssh -p30255 -o "StrictHostKeyChecking no" "$host" "nvidia-smi -L" &
+done < /workspace/hostfile
 
 pkill -9 -f "train/OLMoE3-"
 
