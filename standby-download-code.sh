@@ -27,6 +27,7 @@ cd /workspace
 # git clone git@github.com:TianhuaTao/beaker-toolbox.git
 bash /workspace/beaker-toolbox/init.sh
 
+pip install triton==3.3.0
 
 echo "Ready ..."
 sleep 7d
