@@ -52,12 +52,14 @@ while IFS= read -r HOST; do
   echo "Prepare script on host '$HOST' with index=$index ..."
 
   # cp hostfile to remote host
-  scp -P30255 -o StrictHostKeyChecking=no $HOSTFILE "$HOST:$HOSTFILE"
+  scp -P30255 -o StrictHostKeyChecking=no $HOSTFILE "$HOST:$HOSTFILE" &
 
   # download latest beaker-toolbox
-  ssh -n -p 30255 -o StrictHostKeyChecking=no "$HOST" "cd ${WORKSPACE_DIR}/beaker-toolbox && git pull"
+  ssh -n -p 30255 -o StrictHostKeyChecking=no "$HOST" "cd ${WORKSPACE_DIR}/beaker-toolbox && git pull" &
   ((index++))
 done < "$HOSTFILE"
+
+wait 
 
 index=0
 while IFS= read -r HOST; do
