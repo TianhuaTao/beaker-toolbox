@@ -42,6 +42,8 @@ fi
 
 unset BEAKER_NODE_HOSTNAME # this node is set to the node that builds the image, not the node that runs the job
 
+export USE_LIBUV=0
+
 script_path="/workspace/beaker-toolbox/torchrun_test.py"
 script_args=""
 # script_path="${WORKSPACE_DIR}/Megatron-LM/scripts/min_torchrun.py"
