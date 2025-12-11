@@ -67,7 +67,8 @@ git pull
 # pip install -U ai2-olmo-eval
 # pip install triton==3.3.0
 
-port=24759
+# port=24759
+port=29500
 
 NODE0=$(head -n 1 "$HOST_FILE_PATH" | awk '{print $1}')
 
