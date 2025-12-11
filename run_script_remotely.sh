@@ -66,14 +66,16 @@ while IFS= read -r HOST; do
   # Skip empty lines or lines starting with '#' (comment)
   [[ -z "$HOST" || "$HOST" =~ ^# ]] && continue
 
-  # skip rank=55
-  if [ "$index" -eq 55 ]; then
-      echo "Skipping host '$HOST' with index=$index ..."
-      ((index++))
-      continue
-  fi
 
   echo "Starting remote script on host '$HOST' with index=$index ..."
+
+
+  if [ "$index" -eq 55 ]; then
+      # echo "Skipping host '$HOST' with index=$index ..."
+      # ((index++))
+      # continue
+      sleep 3
+  fi
 
   # Run the remote script in the background, streaming its output locally.
   # - The remote script is assumed to already exist at $REMOTEPATH on the remote machine.
@@ -85,6 +87,15 @@ while IFS= read -r HOST; do
   # Use -n with SSH -n tells SSH to redirect its standard input from /dev/null, so it cannot eat your local script’s input
   ssh -n -p 30255 -o StrictHostKeyChecking=no "$HOST" "$REMOTEPATH $index '$HOSTFILE' '$TIMESTAMP' $EXTRA_ARGS " 2>&1 | sed "s/^/[$HOST - $index] /"    &
   sleep 0.3
+
+  if [ "$index" -eq 55 ]; then
+      # echo "Skipping host '$HOST' with index=$index ..."
+      # ((index++))
+      # continue
+      sleep 3
+  fi
+
+
 #   echo "ssh return code: $?"
 #   echo "Submitted remote script on host '$HOST' with index=$index."
 # | tee "${HOST//[^a-zA-Z0-9_]/_}-${TIMESTAMP}.log"
