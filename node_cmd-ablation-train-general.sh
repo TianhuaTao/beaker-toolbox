@@ -19,35 +19,6 @@ NUM_GPUS_PER_WORKER=8
 USE_PROFILE=0
 ############## High-level configs ############## END
 
-# if [ $NODE_NETWORK_TYPE == "ib" ]; then
-#         echo "Using Infiniband"
-#         # setup infiniband (ai2/jupiter-cirrascale-2)
-
-#         # Use all interfaces starting with `ib`. This selects the IB cards and avoids 
-#         # interfaces with names like bond0 and enp0, which are usually ethernet devices.
-#         # Ethernet networks are not robust/fast enough for most distributed training workloads.
-#         # https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/env.html#nccl-socket-ifname
-#         export NCCL_SOCKET_IFNAME=ib
-
-#         # Don't use the IB bond (which uses the attached ethernet cards) for the same reason.
-#         # https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/env.html#nccl-ib-hca
-#         export NCCL_IB_HCA=^=mlx5_bond_0
-# elif [ $NODE_NETWORK_TYPE == "eth" ]; then
-#         echo "Using eth"
-#         export NCCL_SOCKET_IFNAME=bond0
-# elif [ $NODE_NETWORK_TYPE == "tcpxo" ]; then
-#         echo "Using TCPXO"
-#         # setup tcpxo 
-#         NCCL_LIB_DIR="/var/lib/tcpxo/lib64" source /var/lib/tcpxo/lib64/nccl-env-profile.sh
-#         export NCCL_NET=FasTrak # optional, it should find this automatically if everything is set correctly
-#         # I don't know why this is needed
-#         export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
-#         export NCCL_FASTRAK_DATA_TRANSFER_TIMEOUT_MS=600000 # 10 min 
-# else
-#         echo "Unknown network type"
-#         exit 1
-# fi
-
 
 export WANDB_API_KEY=61753d825c2bec08062290674ce9e3585bf31db3
 export WEKA_PROFILE=weka 
