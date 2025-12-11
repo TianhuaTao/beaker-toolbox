@@ -63,6 +63,10 @@ script_path="./src/scripts/train/$PYTHON_SCRIPT.py"
 script_args="train $TAG $CLUSTER "
 # script_path="${WORKSPACE_DIR}/Megatron-LM/scripts/min_torchrun.py"
 
+export TORCH_DISTRIBUTED_DEBUG=DETAIL 
+export TORCH_CPP_LOG_LEVEL=INFO 
+export TORCH_CPP_LOG_COMPONENTS=c10d,TCPStore,TCPStoreLibUvBackend,socket 
+export UV_DEBUG=1
 
 # run_cmd=${report_mem_cmd}
 if [ $USE_PROFILE -eq 1 ]; then

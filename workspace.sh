@@ -27,3 +27,6 @@ nsys profile -t nvtx,cuda --capture-range=cudaProfilerApi --capture-range-end=st
 
 
 scp -P30255 root@augusta-gcp-299:/workspace/prof_5_OLMoE3-nov25.nsys-rep ./
+
+
+torchrun --rdzv_endpoint augusta-gcp-280:29500 --rdzv_id 33333 --rdzv_backend c10d --nnodes 64 --nproc-per-node 8 --node_rank 55 ./src/scripts/train/OLMoE3-dec10.py train OLMoE3-dec10 ai2/augusta
