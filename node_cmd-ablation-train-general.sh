@@ -24,7 +24,7 @@ export WANDB_API_KEY=61753d825c2bec08062290674ce9e3585bf31db3
 export WEKA_PROFILE=weka 
 export WEKA_ENDPOINT_URL=https://weka-aus.beaker.org:9000
 export OLMO_NUM_NODES_ENV_VAR=$NUM_NODES
-
+export OMP_NUM_THREADS=1
 # cd ${WORKSPACE_DIR}/beaker-toolbox
 
 # git pull
