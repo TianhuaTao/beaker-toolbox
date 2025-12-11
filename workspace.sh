@@ -1,7 +1,7 @@
 # GCP multi node
 bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile /workspace/beaker-toolbox/node_cmd-ablation-train-general.sh OLMoE3-dec10
 
-bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile python /workspace/beaker-toolbox/torchrun_test.py
+bash /workspace/beaker-toolbox/run_script_remotely.sh /workspace/hostfile /workspace/beaker-toolbox/torchrun_test.py
 
 
 while read -r host; do
