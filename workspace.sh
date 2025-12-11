@@ -9,6 +9,10 @@ while read -r host; do
 done < /workspace/hostfile
 
 while read -r host; do
+    ssh -p30255 -o "StrictHostKeyChecking no" "$host" "pkill -9 -f \"torchrun\"" &
+done < /workspace/hostfile
+
+while read -r host; do
     ssh -p30255 -o "StrictHostKeyChecking no" "$host" "nvidia-smi -L" &
 done < /workspace/hostfile
 
