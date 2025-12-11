@@ -104,7 +104,7 @@ if [ $USE_PROFILE -eq 1 ]; then
         torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20186 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
         
 else
-        run_cmd="${OPTIONS_NCCL} ${OTHER_OPTIONS} ${OLMO_OPTION} torchrun --rdzv-timeout 600 --rdzv_endpoint $NODE0:$port --rdzv_id 20186 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
+        run_cmd="${OPTIONS_NCCL} ${OTHER_OPTIONS} ${OLMO_OPTION} torchrun --rdzv-configs=\"join_timeout=600\" --rdzv_endpoint $NODE0:$port --rdzv_id 20186 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
 fi
 
 echo ${run_cmd}
