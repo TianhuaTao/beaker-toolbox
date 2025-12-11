@@ -11,7 +11,7 @@ NUM_NODES=$(wc -l < ${HOST_FILE_PATH})
 
 echo $SLURM_NODEID $HOST_FILE_PATH $NUM_NODES
 
-ulimit -n 65536
+ulimit -n 1048576
 
 ############## High-level configs ############## BEGIN
 # NODE_NETWORK_TYPE="eth"
