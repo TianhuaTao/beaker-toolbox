@@ -42,10 +42,10 @@ fi
 
 unset BEAKER_NODE_HOSTNAME # this node is set to the node that builds the image, not the node that runs the job
 
-export USE_LIBUV=0
-export TORCH_DISTRIBUTED_DEBUG=DETAIL
-export TORCH_CPP_LOG_LEVEL=INFO
-export TORCH_CPP_LOG_COMPONENTS=c10d,TCPStore,TCPStoreLibUvBackend,socket
+# export USE_LIBUV=0
+# export TORCH_DISTRIBUTED_DEBUG=DETAIL
+# export TORCH_CPP_LOG_LEVEL=INFO
+# export TORCH_CPP_LOG_COMPONENTS=c10d,TCPStore,TCPStoreLibUvBackend,socket
 
 
 script_path="/workspace/beaker-toolbox/torchrun_test.py"
