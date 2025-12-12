@@ -39,7 +39,7 @@ git pull
 # pip install triton==3.3.0
 
 # port=24759
-port=29500
+port=10086
 
 NODE0=$(head -n 1 "$HOST_FILE_PATH" | awk '{print $1}')
 
@@ -79,7 +79,7 @@ if [ $USE_PROFILE -eq 1 ]; then
         torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 33333 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
         
 else
-        run_cmd="${OPTIONS_NCCL} ${OTHER_OPTIONS} ${OLMO_OPTION} torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 33333 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
+        run_cmd="${OPTIONS_NCCL} ${OTHER_OPTIONS} ${OLMO_OPTION} torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
 fi
 
 echo ${run_cmd}
