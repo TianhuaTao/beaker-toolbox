@@ -25,7 +25,13 @@ fi
 cd /workspace
 # rm -rf beaker-toolbox
 # git clone git@github.com:TianhuaTao/beaker-toolbox.git
-bash /workspace/beaker-toolbox/init.sh
+
+rm -rf /workspace/OLMo-core
+git clone git@github.com:allenai/OLMo-core.git
+cd /workspace/OLMo-core
+git checkout tianhua/olmoe-dev-v2
+pip install -e .[all]
+cd /workspace
 
 pip install triton==3.3.0
 
