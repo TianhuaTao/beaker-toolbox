@@ -23,15 +23,9 @@ fi
 # ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
 cd /workspace
-# rm -rf beaker-toolbox
-# git clone git@github.com:TianhuaTao/beaker-toolbox.git
 
-rm -rf /workspace/OLMo-core
-git clone git@github.com:allenai/OLMo-core.git
-cd /workspace/OLMo-core
-git checkout tianhua/olmoe-dev-v2
-pip install -e .[all]
-cd /workspace
+bash /workspace/beaker-toolbox/init.sh
+
 
 pip install triton==3.3.0
 
