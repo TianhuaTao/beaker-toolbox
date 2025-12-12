@@ -17,7 +17,7 @@ echo "calling init.sh ============"
 # echo "make_hostfile_torchrun.py finished"
 
 
-beaker experiment get $BEAKER_EXPERIMENT_ID --format=json | /workspace/beaker-toolbox/make_hostname_from_json.py > /workspace/hostfile2
+beaker experiment get $BEAKER_EXPERIMENT_ID --format=json | /workspace/beaker-toolbox/make_hostname_from_json.py > /workspace/hostfile
 echo "hostfile created"
 cat /workspace/hostfile
 
