@@ -45,6 +45,6 @@ export WANDB_API_KEY=61753d825c2bec08062290674ce9e3585bf31db3
 export LD_LIBRARY_PATH=/var/lib/tcpxo/lib64:$LD_LIBRARY_PATH
 # export NCCL_DEBUG=INFO 
 
-torchrun --rdzv_endpoint $BEAKER_LEADER_REPLICA_HOSTNAME:10086 --rdzv_id 20086 --rdzv_backend c10d --nnodes ${BEAKER_REPLICA_COUNT} --nproc-per-node ${BEAKER_ASSIGNED_GPU_COUNT} --node_rank "${BEAKER_REPLICA_RANK}" ./src/scripts/train/OLMoE3-dec12.py train OLMoE3-dec12 ai2/augusta
+torchrun --rdzv_endpoint $BEAKER_LEADER_REPLICA_HOSTNAME:10086 --rdzv_id 20086 --rdzv_backend c10d --nnodes ${BEAKER_REPLICA_COUNT} --nproc-per-node ${BEAKER_ASSIGNED_GPU_COUNT} --node_rank "${BEAKER_REPLICA_RANK}" ./src/scripts/train/OLMoE3-dec12.py train OLMoE3-dec12 ai2/augusta 2>&1 | tee /workspace/workload.log
 
 
