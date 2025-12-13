@@ -35,5 +35,23 @@
             "justMyCode": false,
 
         },
+        {
+            "name": "olmo-core debug mp",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "/usr/local/bin/torchrun",
+            "console": "integratedTerminal",
+            "args": "--rdzv_endpoint augusta-gcp-358:10086 --nproc-per-node=8 --rdzv_id 20086 --rdzv_backend c10d --nnodes 2 --node_rank 0 /workspace/OLMo-core/src/scripts/train/OLMoE3-dec12.py train OLMoE3-dec12 ai2/augusta",
+
+            "cwd": "/workspace/OLMo-core",
+            "env": {
+                "WANDB_API_KEY": "61753d825c2bec08062290674ce9e3585bf31db3",
+                "TORCHINDUCTOR_COMPILE_THREADS": "2",
+                "LD_LIBRARY_PATH": "/var/lib/tcpxo/lib64:/usr/local/lib/python3.12/dist-packages/torch/lib:/usr/local/lib/python3.12/dist-packages/torch_tensorrt/lib:/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+                "OLMO_NUM_NODES_ENV_VAR": "2",
+                },
+            "justMyCode": false,
+
+        },
     ]
 }
