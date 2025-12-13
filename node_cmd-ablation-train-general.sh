@@ -16,7 +16,7 @@ ulimit -n 1048576
 ############## High-level configs ############## BEGIN
 # NODE_NETWORK_TYPE="eth"
 NUM_GPUS_PER_WORKER=8
-USE_PROFILE=0
+USE_PROFILE=1
 ############## High-level configs ############## END
 
 
@@ -76,7 +76,7 @@ if [ $USE_PROFILE -eq 1 ]; then
         --capture-range-end=stop \
         --force-overwrite true \
         -o /workspace/prof_${SLURM_NODEID}_${TAG} \
-        torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 33333 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
+        torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
         
 else
         run_cmd="torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
