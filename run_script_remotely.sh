@@ -69,6 +69,13 @@ while IFS= read -r HOST; do
 
   echo "Starting remote script on host '$HOST' with index=$index ..."
 
+  # skip rank 24
+  if [[ $index -eq 24 ]]; then
+      echo "Skipping host '$HOST' with index=$index ..."
+      ((index++))
+      continue
+  fi
+
   # Run the remote script in the background, streaming its output locally.
   # - The remote script is assumed to already exist at $REMOTEPATH on the remote machine.
   # - We pass two arguments: (1) index, (2) the hostfile path.
