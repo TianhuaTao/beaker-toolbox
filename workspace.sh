@@ -16,6 +16,9 @@ done < /workspace/hostfile
 pkill -9 -f "train/OLMoE3-"
 
 
+while read -r host; do
+    ssh -p30255 -o "StrictHostKeyChecking no" "$host" "ls /workspace/OLMo-core/input_ids*" &
+done < /workspace/hostfile
 
 export WANDB_API_KEY=61753d825c2bec08062290674ce9e3585bf31db3
 torchrun --nproc-per-node=8 OLMo-core/src/scripts/train/OLMoE3-nov25.py train OLMoE3-nov25 ai2/augusta
