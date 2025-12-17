@@ -79,7 +79,7 @@ if [ $USE_PROFILE -eq 1 ]; then
         torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
         
 else
-        run_cmd="torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend static --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
+        run_cmd="torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
 fi
 
 echo ${run_cmd}
