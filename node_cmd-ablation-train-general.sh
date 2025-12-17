@@ -16,7 +16,7 @@ ulimit -n 1048576
 ############## High-level configs ############## BEGIN
 # NODE_NETWORK_TYPE="eth"
 NUM_GPUS_PER_WORKER=8
-USE_PROFILE=1
+USE_PROFILE=0
 ############## High-level configs ############## END
 
 
@@ -49,7 +49,7 @@ TAG=$PYTHON_SCRIPT # use the same
 if [[ $(hostname) == *"augusta"* ]]; then
     CLUSTER="ai2/augusta"
     # export NCCL_NET=FasTrak
-    export NCCL_DEBUG=WARN 
+    export NCCL_DEBUG=INFO 
     export LD_LIBRARY_PATH=/var/lib/tcpxo/lib64:$LD_LIBRARY_PATH
 else
     CLUSTER="ai2/jupiter"
