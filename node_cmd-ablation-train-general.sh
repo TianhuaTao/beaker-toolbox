@@ -67,7 +67,7 @@ script_args="train $TAG $CLUSTER "
 # export TORCH_CPP_LOG_LEVEL=INFO 
 # export TORCH_CPP_LOG_COMPONENTS=c10d,TCPStore,TCPStoreLibUvBackend,socket 
 # export UV_DEBUG=1
-
+export USE_LIBUV=0
 # run_cmd=${report_mem_cmd}
 if [ $USE_PROFILE -eq 1 ]; then
         run_cmd="nsys profile \
