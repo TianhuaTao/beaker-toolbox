@@ -76,10 +76,10 @@ if [ $USE_PROFILE -eq 1 ]; then
         --capture-range-end=stop \
         --force-overwrite true \
         -o /workspace/prof_${SLURM_NODEID}_${TAG} \
-        torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
+        torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend static --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
         
 else
-        run_cmd="torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend c10d --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
+        run_cmd="torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend static --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
 fi
 
 echo ${run_cmd}
