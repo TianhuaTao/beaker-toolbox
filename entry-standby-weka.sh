@@ -10,11 +10,11 @@ echo "BEAKER_WORKLOAD_ID" $BEAKER_WORKLOAD_ID
 echo "BEAKER_REPLICA_RANK" $BEAKER_REPLICA_RANK
 echo "BEAKER_LEADER_REPLICA_HOSTNAME" $BEAKER_LEADER_REPLICA_HOSTNAME
 
-rm /workspace # remove weka link
+# rm /workspace # remove weka link
 
 # touch a file to indicate this replica is running
-mkdir -p /workspace/beaker_jobs/$BEAKER_WORKLOAD_ID
-touch /workspace/beaker_jobs/$BEAKER_WORKLOAD_ID/$BEAKER_REPLICA_RANK.$HOSTNAME
+# mkdir -p /workspace/beaker_jobs/$BEAKER_WORKLOAD_ID
+# touch /workspace/beaker_jobs/$BEAKER_WORKLOAD_ID/$BEAKER_REPLICA_RANK.$HOSTNAME
 
 # if BEAKER_LEADER_REPLICA_HOSTNAME is not set, use current hostname
 if [ -z "$BEAKER_LEADER_REPLICA_HOSTNAME" ]; then
@@ -42,7 +42,7 @@ sudo apt-get update && sudo apt-get -y install google-cloud-cli
 sudo apt-get install -y bwm-ng
 
 # olmo-core
-cd /weka/oe-training-default/tianhua/ws-megatron/
+cd /workspace
 pip install -e ./OLMo-core
 
 pip install triton==3.3.0

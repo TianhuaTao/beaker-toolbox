@@ -31,7 +31,7 @@ export OMP_NUM_THREADS=1
 
 cd ${WORKSPACE_DIR}/OLMo-core
 
-git pull
+# git pull
 
 # pip install -e .[all]
 # pip install -U liger-kernel==0.6.2
@@ -54,7 +54,6 @@ if [[ $(hostname) == *"augusta"* ]]; then
 else
     CLUSTER="ai2/jupiter"
     export OLMO_SHARED_FS=1 # shared fs
-
 fi
 
 unset BEAKER_NODE_HOSTNAME # this node is set to the node that builds the image, not the node that runs the job
@@ -67,7 +66,7 @@ script_args="train $TAG $CLUSTER "
 # export TORCH_CPP_LOG_LEVEL=INFO 
 # export TORCH_CPP_LOG_COMPONENTS=c10d,TCPStore,TCPStoreLibUvBackend,socket 
 # export UV_DEBUG=1
-export USE_LIBUV=0
+# export USE_LIBUV=0
 export PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True"
 
 # run_cmd=${report_mem_cmd}
@@ -77,7 +76,7 @@ if [ $USE_PROFILE -eq 1 ]; then
         --capture-range=cudaProfilerApi \
         --capture-range-end=stop \
         --force-overwrite true \
-        -o /workspace/prof_${SLURM_NODEID}_${TAG} \
+        -o ${WORKSPACE_DIR}/prof_${SLURM_NODEID}_${TAG} \
         torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend static --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
         
 else
@@ -86,4 +85,4 @@ fi
 
 echo ${run_cmd}
 
-eval ${run_cmd} 2>&1 | tee /workspace/logs_${SLURM_NODEID}_${TAG}_${TIMESTAMP}.txt
+eval ${run_cmd} 2>&1 | tee ${WORKSPACE_DIR}/logs_${SLURM_NODEID}_${TAG}_${TIMESTAMP}.txt

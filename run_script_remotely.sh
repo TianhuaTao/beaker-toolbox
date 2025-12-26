@@ -14,7 +14,7 @@
 # Exit immediately if any command fails:
 # set -e
 
-WORKSPACE_DIR=/workspace
+WORKSPACE_DIR='/workspace'
 HOSTFILE=${1:-"${WORKSPACE_DIR}/hostfile"}       # Default to "hosts.txt" if not provided
 REMOTEPATH=${2:-"${WORKSPACE_DIR}/scripts/node_cmd.sh"}   # Default to "script.sh" if not provided
 EXTRA_ARGS=${3:-""} # Extra arguments to pass to the remote script
@@ -24,17 +24,17 @@ echo "HOSTFILE: $HOSTFILE"
 cat $HOSTFILE
 echo "REMOTEPATH: $REMOTEPATH"
 
-cd /workspace/OLMo-core
-git commit -am "tmp commit to update OLMo-core"
-git push
-sleep 2
+# cd /workspace/OLMo-core
+# git commit -am "tmp commit to update OLMo-core"
+# git push
+# sleep 2
 
-# update beaker-toolbox
-cd ${WORKSPACE_DIR}/beaker-toolbox
-git commit -am "tmp commit to update beaker-toolbox"
-git push
+# # update beaker-toolbox
+# cd ${WORKSPACE_DIR}/beaker-toolbox
+# git commit -am "tmp commit to update beaker-toolbox"
+# git push
 
-cd /workspace
+cd $WORKSPACE_DIR
 
 if [[ ! -f "$HOSTFILE" ]]; then
   echo "Error: host file '$HOSTFILE' not found."
@@ -43,23 +43,23 @@ fi
 
 TIMESTAMP=$(date '+%Y%m%d-%H%M%S')
 
-# We'll keep an index that increments for each valid host
-index=0
-while IFS= read -r HOST; do
-  # Skip empty lines or lines starting with '#' (comment)
-  [[ -z "$HOST" || "$HOST" =~ ^# ]] && continue
+# # We'll keep an index that increments for each valid host
+# index=0
+# while IFS= read -r HOST; do
+#   # Skip empty lines or lines starting with '#' (comment)
+#   [[ -z "$HOST" || "$HOST" =~ ^# ]] && continue
 
-  echo "Prepare script on host '$HOST' with index=$index ..."
+#   echo "Prepare script on host '$HOST' with index=$index ..."
 
-  # cp hostfile to remote host
-  scp -P30255 -o StrictHostKeyChecking=no $HOSTFILE "$HOST:$HOSTFILE" 
+#   # cp hostfile to remote host
+#   scp -P30255 -o StrictHostKeyChecking=no $HOSTFILE "$HOST:$HOSTFILE" 
 
-  # download latest beaker-toolbox
-  ssh -n -p 30255 -o StrictHostKeyChecking=no "$HOST" "cd ${WORKSPACE_DIR}/beaker-toolbox && git pull" 
-  ((index++))
-done < "$HOSTFILE"
+#   # download latest beaker-toolbox
+#   ssh -n -p 30255 -o StrictHostKeyChecking=no "$HOST" "cd ${WORKSPACE_DIR}/beaker-toolbox && git pull" 
+#   ((index++))
+# done < "$HOSTFILE"
 
-wait 
+# wait 
 
 index=0
 while IFS= read -r HOST; do
