@@ -39,12 +39,12 @@ cat /workspace/hostfile
 
 # update lateset codebase
 cd /workspace
-rm -rf /workspace/OLMo-core
-git clone git@github.com:allenai/OLMo-core.git
-cd /workspace/OLMo-core
-git checkout tianhua/olmoe-dev-v2
-pip install -e .[all]
-cd /workspace
+# rm -rf /workspace/OLMo-core
+# git clone git@github.com:allenai/OLMo-core.git
+# cd /workspace/OLMo-core
+# git checkout tianhua/olmoe-dev-v2
+# pip install -e .[all]
+# cd /workspace
 
 
 echo "init.sh done ============"
