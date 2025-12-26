@@ -25,7 +25,9 @@ fi
 cd /workspace
 # rm -rf beaker-toolbox
 # git clone git@github.com:TianhuaTao/beaker-toolbox.git
-bash /workspace/beaker-toolbox/init.sh
+beaker experiment get $BEAKER_EXPERIMENT_ID --format=json | /workspace/beaker-toolbox/make_hostname_from_json.py > /workspace/hostfile
+echo "hostfile created"
+cat /workspace/hostfile
 
 pip install triton==3.3.0
 

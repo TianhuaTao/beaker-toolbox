@@ -1,24 +1,37 @@
-mkdir /workspace
+set -x
+
+# start ssh service
+service ssh start
+
+# print environment variables
+echo $HOSTNAME
+echo "BEAKER_REPLICA_COUNT" $BEAKER_REPLICA_COUNT
+echo "BEAKER_WORKLOAD_ID" $BEAKER_WORKLOAD_ID
+echo "BEAKER_REPLICA_RANK" $BEAKER_REPLICA_RANK
+echo "BEAKER_LEADER_REPLICA_HOSTNAME" $BEAKER_LEADER_REPLICA_HOSTNAME
+
+rm /workspace # remove weka link
+
+# touch a file to indicate this replica is running
+mkdir -p /workspace/beaker_jobs/$BEAKER_WORKLOAD_ID
+touch /workspace/beaker_jobs/$BEAKER_WORKLOAD_ID/$BEAKER_REPLICA_RANK.$HOSTNAME
+
+# if BEAKER_LEADER_REPLICA_HOSTNAME is not set, use current hostname
+if [ -z "$BEAKER_LEADER_REPLICA_HOSTNAME" ]; then
+    BEAKER_LEADER_REPLICA_HOSTNAME=$HOSTNAME
+fi
+
+# ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+
 cd /workspace
 
-git clone https://github.com/allenai/OLMo-core
+# make hostfile
+beaker experiment get $BEAKER_EXPERIMENT_ID --format=json | /workspace/beaker-toolbox/make_hostname_from_json.py > /workspace/hostfile
+echo "hostfile created"
+cat /workspace/hostfile
 
-cd /workspace/OLMo-core
-git checkout tianhua/olmoe-dev
-pip install nvtx nvitop
-apt update && apt install -y htop
-apt install -y ssh
+# install tmporary dependencies
+pip install triton==3.3.0
 
-pip install -e .
-
-export OLMO_NUM_NODES_ENV_VAR=${BEAKER_REPLICA_COUNT}
-
-# export NCCL_NET=FasTrak
-export LD_LIBRARY_PATH=/var/lib/tcpxo/lib64:$LD_LIBRARY_PATH
-# export NCCL_DEBUG=INFO 
-
-# torchrun --rdzv_endpoint $BEAKER_LEADER_REPLICA_HOSTNAME:10086 --rdzv_id 20086 --rdzv_backend c10d --nnodes ${BEAKER_REPLICA_COUNT} --nproc-per-node ${BEAKER_ASSIGNED_GPU_COUNT} --node_rank "${BEAKER_REPLICA_RANK}" ./src/scripts/train/OLMoE3-dev-32l-jul10-gcp-warm2-decay.py train OLMo3-moe-integrationtest-5-32L-lbl-fix ai2/augusta-google-1
-
-
-sleep 10d
-
+echo "Ready ..."
+sleep 7d
