@@ -30,8 +30,25 @@ beaker experiment get $BEAKER_EXPERIMENT_ID --format=json | /workspace/beaker-to
 echo "hostfile created"
 cat /workspace/hostfile
 
-# install tmporary dependencies
+# ----------- install tmporary dependencies
+
+# gcloud cli
+sudo apt-get update
+sudo apt-get install apt-transport-https ca-certificates gnupg curl
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+sudo apt-get update && sudo apt-get -y install google-cloud-cli
+
+sudo apt-get install -y bwm-ng
+
+# olmo-core
+cd /weka/oe-training-default/tianhua/ws-megatron/
+pip install -e ./OLMo-core
+
 pip install triton==3.3.0
+
+# ----------- install tmporary dependencies - done
+
 
 echo "Ready ..."
 sleep 7d
