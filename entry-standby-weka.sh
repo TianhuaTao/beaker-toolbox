@@ -30,7 +30,7 @@ beaker experiment get $BEAKER_EXPERIMENT_ID --format=json | /workspace/beaker-to
 echo "hostfile created"
 cat /workspace/hostfile
 
-# ----------- install tmporary dependencies
+# ----------- install temporary dependencies
 
 # gcloud cli
 sudo apt-get update
@@ -42,12 +42,13 @@ sudo apt-get update && sudo apt-get -y install google-cloud-cli
 sudo apt-get install -y bwm-ng
 
 # olmo-core
-cd /workspace
-pip install -e ./OLMo-core
-
+cd /workspace/OLMo-core
+pip install -e .[all]
+pip install -U ai2-olmo-eval==0.8.5
+pip install transformers==4.57.3 -U
 pip install triton==3.3.0
 
-# ----------- install tmporary dependencies - done
+# ----------- install temporary dependencies - done
 
 
 echo "Ready ..."
