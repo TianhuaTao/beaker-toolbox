@@ -33,11 +33,11 @@ cd ${WORKSPACE_DIR}/OLMo-core
 
 # git pull
 
-# pip install -e .[all]
+pip install -e .[all]
 # pip install -U liger-kernel==0.6.2
-# pip install -U ai2-olmo-eval==0.8.5
-# pip install transformers==4.57.3 -U
-# pip install triton==3.3.0
+pip install -U ai2-olmo-eval==0.8.5
+pip install transformers==4.57.3 -U
+pip install triton==3.3.0
 
 # port=24759
 port=10086
@@ -55,7 +55,8 @@ if [[ $(hostname) == *"augusta"* ]]; then
 else
     CLUSTER="ai2/jupiter"
     export OLMO_SHARED_FS=1 # shared fs
-    export TORCHINDUCTOR_CACHE_DIR=/tmp/triton_cache # avoid NFS issue
+    export TORCHINDUCTOR_CACHE_DIR=/tmp/torchinductor_cache # avoid NFS issue
+    export TRITON_CACHE_DIR=/tmp/triton_cache
 fi
 
 unset BEAKER_NODE_HOSTNAME # this node is set to the node that builds the image, not the node that runs the job
