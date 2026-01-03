@@ -50,6 +50,8 @@ pip install triton==3.3.0
 
 # ----------- install temporary dependencies - done
 
+git config --global user.name "Tianhua Tao"
+git config --global user.email "taotianhua@outlook.com"
 
 echo "Ready ..."
 sleep 7d
