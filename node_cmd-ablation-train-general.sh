@@ -38,6 +38,11 @@ pip install -e .[all]
 pip install -U ai2-olmo-eval==0.8.5
 pip install transformers==4.57.3 -U
 pip install triton==3.3.0
+# pip install -e .[all]
+# pip install -U liger-kernel==0.6.2
+# pip install -U ai2-olmo-eval==0.8.5
+# pip install transformers==4.57.3 -U
+# pip install triton==3.3.0
 
 # port=24759
 port=10086
