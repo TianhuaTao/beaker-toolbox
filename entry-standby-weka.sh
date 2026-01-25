@@ -1,6 +1,6 @@
 set -x
 
-apt-get update && apt-get install -y openssh-server
+# apt-get update && apt-get install -y openssh-server
 echo "Port 30255" >> /etc/ssh/sshd_config
 
 # start ssh service
