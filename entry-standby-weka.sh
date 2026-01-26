@@ -1,5 +1,9 @@
 set -x
 
+echo $PATH
+which python
+which pip
+
 # apt-get update && apt-get install -y openssh-server
 echo "Port 30255" >> /etc/ssh/sshd_config
 
@@ -34,27 +38,28 @@ echo "hostfile created"
 cat /workspace/hostfile
 
 # ----------- install temporary dependencies
+apt-get update
 
 # gcloud cli
-sudo apt-get update
-sudo apt-get install apt-transport-https ca-certificates gnupg curl
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
-echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-sudo apt-get update && sudo apt-get -y install google-cloud-cli
 
-sudo apt-get install -y bwm-ng
+# sudo apt-get install apt-transport-https ca-certificates gnupg curl
+# curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+# echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+# sudo apt-get update && sudo apt-get -y install google-cloud-cli
+
+apt-get install -y bwm-ng
 
 # olmo-core
 cd /workspace/OLMo-core
-pip install -e .[all]
-pip install -U ai2-olmo-eval==0.8.5
-pip install transformers==4.57.3 -U
-pip install triton==3.3.0
+pip install -e .[all] --no-deps # assume dependencies are already installed in image
+# pip install -U ai2-olmo-eval==0.8.5
+# pip install transformers==4.57.3 -U
+# pip install triton==3.3.0
 
 # ----------- install temporary dependencies - done
-
 git config --global user.name "Tianhua Tao"
 git config --global user.email "taotianhua@outlook.com"
+
 
 echo "Ready ..."
 sleep 7d
