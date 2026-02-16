@@ -48,10 +48,12 @@ apt-get update
 # sudo apt-get update && sudo apt-get -y install google-cloud-cli
 
 apt-get install -y bwm-ng
+pip install nvtx
 
 # olmo-core
 cd /workspace/OLMo-core
 pip install -e .[all] --no-deps # assume dependencies are already installed in image
+pip install -U "beaker-py<2.0"
 # pip install -U ai2-olmo-eval==0.8.5
 # pip install transformers==4.57.3 -U
 # pip install triton==3.3.0
