@@ -84,7 +84,9 @@ while IFS= read -r HOST; do
   #
   # Putting '&' at the end runs the ssh command in the background locally.
   # Use -n with SSH -n tells SSH to redirect its standard input from /dev/null, so it cannot eat your local script’s input
-  ssh -n -p 30255 -o StrictHostKeyChecking=no "$HOST" "$REMOTEPATH $index '$HOSTFILE' '$TIMESTAMP' $EXTRA_ARGS " 2>&1 | sed "s/^/[$HOST - $index] /"    &
+  # Run through `bash -lc` remotely so SSH command execution gets login-shell env setup.
+  REMOTE_CMD="${REMOTEPATH} ${index} '${HOSTFILE}' '${TIMESTAMP}' ${EXTRA_ARGS}"
+  ssh -n -p 30255 -o StrictHostKeyChecking=no "$HOST" "bash -lc $(printf '%q' "$REMOTE_CMD")" 2>&1 | sed "s/^/[$HOST - $index] /" &
   sleep 0.3
 
 

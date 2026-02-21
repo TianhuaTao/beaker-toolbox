@@ -17,14 +17,15 @@ ulimit -n 1048576
 ############## High-level configs ############## BEGIN
 # NODE_NETWORK_TYPE="eth"
 NUM_GPUS_PER_WORKER=8
-USE_PROFILE=1
+USE_PROFILE=0
 ############## High-level configs ############## END
 
+# export PATH=/opt/conda/bin:/opt/conda/condabin:/opt/miniconda3/bin:/usr/local/nvidia/bin:$PATH
 
 export WANDB_API_KEY=61753d825c2bec08062290674ce9e3585bf31db3
 export WEKA_PROFILE=weka 
-export WEKA_ENDPOINT_URL=https://weka-aus.beaker.org:9000
-export OLMO_NUM_NODES_ENV_VAR=$NUM_NODES
+# export WEKA_ENDPOINT_URL=https://weka-aus.beaker.org:9000
+# export OLMO_NUM_NODES_ENV_VAR=$NUM_NODES
 export OMP_NUM_THREADS=1
 # cd ${WORKSPACE_DIR}/beaker-toolbox
 
@@ -66,12 +67,11 @@ script_path="./src/scripts/train/moe_ablation/$PYTHON_SCRIPT.py"
 script_args="train $TAG $CLUSTER "
 # script_path="${WORKSPACE_DIR}/Megatron-LM/scripts/min_torchrun.py"
 
-# export TORCH_DISTRIBUTED_DEBUG=DETAIL 
-# export TORCH_CPP_LOG_LEVEL=INFO 
-# export TORCH_CPP_LOG_COMPONENTS=c10d,TCPStore,TCPStoreLibUvBackend,socket 
-# export UV_DEBUG=1
-# export USE_LIBUV=0
+
 export PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True"
+# export TORCH_SYMMMEM_NBLOCKS=256
+
+echo "PATH:" $PATH
 
 # run_cmd=${report_mem_cmd}
 if [ $USE_PROFILE -eq 1 ]; then

@@ -47,7 +47,7 @@ apt-get update
 # echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 # sudo apt-get update && sudo apt-get -y install google-cloud-cli
 
-apt-get install -y bwm-ng
+apt-get install -y bwm-ng tmux
 pip install nvtx
 
 # olmo-core
