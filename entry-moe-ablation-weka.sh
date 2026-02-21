@@ -54,9 +54,7 @@ pip install nvtx
 cd /workspace/OLMo-core
 pip install -e .[all] --no-deps # assume dependencies are already installed in image
 pip install -U "beaker-py<2.0"
-# pip install -U ai2-olmo-eval==0.8.5
-# pip install transformers==4.57.3 -U
-# pip install triton==3.3.0
+
 
 # ----------- install temporary dependencies - done
 git config --global user.name "Tianhua Tao"
@@ -66,5 +64,18 @@ git config --global user.email "taotianhua@outlook.com"
 apt remove -y nsight-systems-cli
 apt install -y nsight-systems-2025.5.1
 
-echo "Ready ..."
-sleep 7d
+# run the command passed from the Beaker YAML
+if [ "$1" = "--" ]; then
+    shift
+fi
+
+if [ "$#" -eq 0 ]; then
+    echo "No command provided. Pass it from YAML, e.g. bash entry-moe-ablation-weka.sh -- torchrun ..."
+    exit 2
+fi
+
+echo "Running command: $*"
+"$@"
+exit_code=$?
+echo "Command exited with code ${exit_code}"
+exit "${exit_code}"
