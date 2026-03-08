@@ -47,13 +47,13 @@ apt-get update
 # echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 # sudo apt-get update && sudo apt-get -y install google-cloud-cli
 
-apt-get install -y bwm-ng tmux
-pip install nvtx
+# apt-get install -y bwm-ng tmux
+# pip install nvtx
 
 # olmo-core
 cd /workspace/OLMo-core
 pip install -e .[all] --no-deps # assume dependencies are already installed in image
-pip install -U "beaker-py<2.0"
+# pip install -U "beaker-py<2.0"
 # pip install -U ai2-olmo-eval==0.8.5
 # pip install transformers==4.57.3 -U
 # pip install triton==3.3.0
@@ -63,8 +63,8 @@ git config --global user.name "Tianhua Tao"
 git config --global user.email "taotianhua@outlook.com"
 
 
-apt remove -y nsight-systems-cli
-apt install -y nsight-systems-2025.5.1
+# apt remove -y nsight-systems-cli
+# apt install -y nsight-systems-2025.5.1
 
 echo "Ready ..."
 sleep 7d

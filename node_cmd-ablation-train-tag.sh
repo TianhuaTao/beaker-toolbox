@@ -35,7 +35,8 @@ cd ${WORKSPACE_DIR}/OLMo-core
 
 # git pull
 
-pip install -e .[all]
+pip install -e .[all] --no-deps
+pip install matplotlib
 # pip install -U liger-kernel==0.6.2
 # pip install -U ai2-olmo-eval==0.8.5
 # pip install transformers==4.57.3 -U
