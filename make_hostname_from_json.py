@@ -11,6 +11,9 @@ hostnames = []
 
 for job in data:
     envvars = job['execution']['spec']['envVars']
+    job_status = job['status']
+    if "finalized" in job_status:
+        continue # skip finalized jobs
     for var_pairs in envvars:
         if var_pairs['name'] == 'BEAKER_NODE_HOSTNAME':
             hostnames.append(var_pairs['value'])
