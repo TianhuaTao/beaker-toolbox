@@ -69,7 +69,15 @@ script_args="train $TAG $CLUSTER "
 
 
 export PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True"
-# export TORCH_SYMMMEM_NBLOCKS=256
+export TORCH_SYMMMEM_NBLOCKS=256 # [recommend] intra-node: 128 H100, 256 B200; inter-node: max(EP_WORLD_SIZE, 16)
+
+export NVSHMEM_IB_ENABLE_IBGDA=1 # for inter node communication, default to 0
+
+# optional: set NVSHMEM_IBGDA_NIC_HANDLER to disable following init warnings:
+# WARN: cudaHostRegister with IoMemory failed with error=800. We may need to use a fallback path.
+# WARN: ibgda_nic_mem_gpu_map failed. We may need to use the CPU fallback path.
+# WARN: ibgda_alloc_and_map_qp_uar with GPU as handler failed. We may need to enter the CPU fallback path.
+export NVSHMEM_IBGDA_NIC_HANDLER=cpu_host_memory #  NVSHMEM v3.4.5
 
 echo "PATH:" $PATH
 
@@ -80,7 +88,7 @@ if [ $USE_PROFILE -eq 1 ]; then
         --capture-range=cudaProfilerApi \
         --capture-range-end=stop \
         --force-overwrite true \
-        -o ${WORKSPACE_DIR}/prof_${SLURM_NODEID}_${TAG} \
+        -o ${WORKSPACE_DIR}/p_${SLURM_NODEID}_${TAG} \
         torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend static --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
         
 else

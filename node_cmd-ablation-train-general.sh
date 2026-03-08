@@ -22,8 +22,8 @@ USE_PROFILE=0
 
 export WANDB_API_KEY=61753d825c2bec08062290674ce9e3585bf31db3
 export WEKA_PROFILE=weka 
-export WEKA_ENDPOINT_URL=https://weka-aus.beaker.org:9000
-export OLMO_NUM_NODES_ENV_VAR=$NUM_NODES
+# export WEKA_ENDPOINT_URL=https://weka-aus.beaker.org:9000
+# export OLMO_NUM_NODES_ENV_VAR=$NUM_NODES
 export OMP_NUM_THREADS=1
 # cd ${WORKSPACE_DIR}/beaker-toolbox
 
@@ -34,11 +34,12 @@ cd ${WORKSPACE_DIR}/OLMo-core
 # git pull
 
 pip install -e .[all]
+pip install nvtx
 # pip install -U liger-kernel==0.6.2
-pip install -U ai2-olmo-eval==0.8.5
-pip install transformers==4.57.3 -U
-pip install triton==3.3.0
-# pip install -e .[all]
+# pip install -U ai2-olmo-eval==0.8.5
+# pip install transformers==4.57.3 -U
+# pip install triton==3.3.0
+# # pip install -e .[all]
 # pip install -U liger-kernel==0.6.2
 # pip install -U ai2-olmo-eval==0.8.5
 # pip install transformers==4.57.3 -U
@@ -76,6 +77,17 @@ script_args="train $TAG $CLUSTER "
 # export UV_DEBUG=1
 # export USE_LIBUV=0
 export PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True"
+export TORCH_SYMMMEM_NBLOCKS=256 # [recommend] intra-node: 128 H100, 256 B200; inter-node: max(EP_WORLD_SIZE, 16)
+
+export NVSHMEM_IB_ENABLE_IBGDA=1 # for inter node communication, default to 0
+
+# optional: set NVSHMEM_IBGDA_NIC_HANDLER to disable following init warnings:
+# WARN: cudaHostRegister with IoMemory failed with error=800. We may need to use a fallback path.
+# WARN: ibgda_nic_mem_gpu_map failed. We may need to use the CPU fallback path.
+# WARN: ibgda_alloc_and_map_qp_uar with GPU as handler failed. We may need to enter the CPU fallback path.
+export NVSHMEM_IBGDA_NIC_HANDLER=cpu_host_memory #  NVSHMEM v3.4.5
+
+echo "PATH:" $PATH
 
 # run_cmd=${report_mem_cmd}
 if [ $USE_PROFILE -eq 1 ]; then

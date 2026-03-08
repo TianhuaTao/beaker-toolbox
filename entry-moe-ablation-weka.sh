@@ -64,6 +64,16 @@ git config --global user.email "taotianhua@outlook.com"
 apt remove -y nsight-systems-cli
 apt install -y nsight-systems-2025.5.1
 
+export WANDB_API_KEY=61753d825c2bec08062290674ce9e3585bf31db3
+export WEKA_PROFILE=weka 
+export OMP_NUM_THREADS=1
+export OLMO_SHARED_FS=1 # shared fs
+export TORCHINDUCTOR_CACHE_DIR=/tmp/torchinductor_cache # avoid NFS issue
+export TRITON_CACHE_DIR=/tmp/triton_cache
+unset BEAKER_NODE_HOSTNAME # this node is set to the node that builds the image, not the node that runs the job
+export BEAKER_NODE_HOSTNAME=$HOSTNAME
+export PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True"
+
 # run the command passed from the Beaker YAML
 if [ "$1" = "--" ]; then
     shift
