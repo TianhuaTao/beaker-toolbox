@@ -33,8 +33,8 @@ cd ${WORKSPACE_DIR}/OLMo-core
 
 # git pull
 
-pip install -e .[all]
-pip install nvtx
+pip install -e .[all] --no-deps
+pip install matplotlib
 # pip install -U liger-kernel==0.6.2
 # pip install -U ai2-olmo-eval==0.8.5
 # pip install transformers==4.57.3 -U
@@ -63,7 +63,13 @@ else
     export OLMO_SHARED_FS=1 # shared fs
     export TORCHINDUCTOR_CACHE_DIR=/tmp/torchinductor_cache # avoid NFS issue
     export TRITON_CACHE_DIR=/tmp/triton_cache
+    # export NCCL_DEBUG=INFO
+    export NCCL_IB_DISABLE=0
+    export NCCL_SOCKET_IFNAME='ib'
 fi
+
+
+
 
 unset BEAKER_NODE_HOSTNAME # this node is set to the node that builds the image, not the node that runs the job
 export BEAKER_NODE_HOSTNAME=$HOSTNAME
@@ -76,6 +82,7 @@ script_args="train $TAG $CLUSTER "
 # export TORCH_CPP_LOG_COMPONENTS=c10d,TCPStore,TCPStoreLibUvBackend,socket 
 # export UV_DEBUG=1
 # export USE_LIBUV=0
+export CUDA_SCALE_LAUNCH_QUEUES=4x # allow more pending kernels
 export PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True"
 export TORCH_SYMMMEM_NBLOCKS=256 # [recommend] intra-node: 128 H100, 256 B200; inter-node: max(EP_WORLD_SIZE, 16)
 
@@ -96,7 +103,7 @@ if [ $USE_PROFILE -eq 1 ]; then
         --capture-range=cudaProfilerApi \
         --capture-range-end=stop \
         --force-overwrite true \
-        -o ${WORKSPACE_DIR}/prof_${SLURM_NODEID}_${TAG} \
+        -o ${WORKSPACE_DIR}/p_${SLURM_NODEID}_${TAG} \
         torchrun --rdzv_endpoint $NODE0:$port --rdzv_id 20086 --rdzv_backend static --nnodes ${NUM_NODES} --nproc-per-node ${NUM_GPUS_PER_WORKER} --node_rank "${SLURM_NODEID}" ${script_path} ${script_args}"
         
 else
