@@ -16,7 +16,7 @@ ulimit -n 1048576
 ############## High-level configs ############## BEGIN
 # NODE_NETWORK_TYPE="eth"
 NUM_GPUS_PER_WORKER=8
-USE_PROFILE=0
+USE_PROFILE=${USE_PROFILE:-0}
 ############## High-level configs ############## END
 
 
@@ -32,9 +32,9 @@ export OMP_NUM_THREADS=1
 cd ${WORKSPACE_DIR}/OLMo-core
 
 # git pull
-
+# python -m pip install --upgrade --no-deps nvidia-nccl-cu12==2.29.7 # unsafe; dev/DEBUG usagel; one-off install at first time in a session.
 pip install -e .[all] --no-deps
-pip install matplotlib
+# pip install matplotlib
 # pip install -U liger-kernel==0.6.2
 # pip install -U ai2-olmo-eval==0.8.5
 # pip install transformers==4.57.3 -U
@@ -44,6 +44,9 @@ pip install matplotlib
 # pip install -U ai2-olmo-eval==0.8.5
 # pip install transformers==4.57.3 -U
 # pip install triton==3.3.0
+
+# python -c "import torch; print('torch=='+torch.__version__)" > /tmp/torch-constraint.txt
+# python -m pip install -c /tmp/torch-constraint.txt "flash-attn-4==4.0.0b12"
 
 # port=24759
 port=10086
@@ -85,9 +88,21 @@ script_args="train $TAG $CLUSTER "
 export CUDA_SCALE_LAUNCH_QUEUES=4x # allow more pending kernels
 export PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True"
 export TORCH_SYMMMEM_NBLOCKS=256 # [recommend] intra-node: 128 H100, 256 B200; inter-node: max(EP_WORLD_SIZE, 16)
+export TORCH_EXTENSIONS_DIR=/tmp/torch_extensions
+# export NVSHMEM_SYMMETRIC_SIZE=8G # OLMo-owned symm backend keeps MoE buffers alive across blocks.
+export OLMO_OWN_SYMM_PREWARM=1 # Allocate symmetric MoE buffers before the PP dry-run schedule.
 
 export NVSHMEM_IB_ENABLE_IBGDA=1 # for inter node communication, default to 0
-
+export OLMO_TBO_DEBUG_PRINT=${OLMO_TBO_DEBUG_PRINT:-0}
+export OLMO_TBO_VERBOSE_DEBUG_PRINT=${OLMO_TBO_VERBOSE_DEBUG_PRINT:-0}
+export OLMO_TBO_DEBUG_RANKS=${OLMO_TBO_DEBUG_RANKS:-0,8}
+export OLMO_TBO_DEBUG_SYNC=${OLMO_TBO_DEBUG_SYNC:-0}
+export OLMO_ROWWISE_DEBUG_PRINT=${OLMO_ROWWISE_DEBUG_PRINT:-0}
+export OLMO_ROWWISE_DEBUG_RANKS=${OLMO_ROWWISE_DEBUG_RANKS:-0,8}
+export OLMO_ROWWISE_DEBUG_SYNC=${OLMO_ROWWISE_DEBUG_SYNC:-0}
+export OLMO_EP_NO_SYNC_SAVED_ACTIVATIONS_DEBUG=${OLMO_EP_NO_SYNC_SAVED_ACTIVATIONS_DEBUG:-0}
+# export OLMO_MOE_SYMM_LEASE_DEBUG=1
+# export OLMO_MOE_SYMM_LEASE_DEBUG_RANKS=8,16
 # optional: set NVSHMEM_IBGDA_NIC_HANDLER to disable following init warnings:
 # WARN: cudaHostRegister with IoMemory failed with error=800. We may need to use a fallback path.
 # WARN: ibgda_nic_mem_gpu_map failed. We may need to use the CPU fallback path.
