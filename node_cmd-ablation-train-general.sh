@@ -16,7 +16,7 @@ ulimit -n 1048576
 ############## High-level configs ############## BEGIN
 # NODE_NETWORK_TYPE="eth"
 NUM_GPUS_PER_WORKER=8
-USE_PROFILE=${USE_PROFILE:-0}
+USE_PROFILE=${USE_PROFILE:-1}
 ############## High-level configs ############## END
 
 
@@ -25,6 +25,7 @@ export WEKA_PROFILE=weka
 # export WEKA_ENDPOINT_URL=https://weka-aus.beaker.org:9000
 # export OLMO_NUM_NODES_ENV_VAR=$NUM_NODES
 export OMP_NUM_THREADS=1
+export OLMO_MIDTRAIN_WORK_DIR=${OLMO_MIDTRAIN_WORK_DIR:-${WORKSPACE_DIR}/dataset-cache}
 # cd ${WORKSPACE_DIR}/beaker-toolbox
 
 # git pull
