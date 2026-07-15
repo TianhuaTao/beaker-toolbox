@@ -1,4 +1,4 @@
-set -euo pipefail
+# set -euo pipefail
 set -x
 
 echo "${PATH}"
@@ -76,11 +76,10 @@ apt-get update
 # The Python environment is local to each node, but setuptools writes editable
 # install metadata into the shared source tree (src/*.egg-info and build/).
 # Serialize the install so 64 replicas do not race on those shared files.
-(
-    flock 201
-    cd /workspace/OLMo-core
-    python -m pip install -e '.[all]' --no-deps # assume dependencies are already installed in image
-) 201>/workspace/.locks/olmo-core-pip-install.lock
+
+cd /workspace/OLMo-core
+python -m pip install -e '.[all]' --no-deps # assume dependencies are already installed in image
+
 python - <<'PY'
 import olmo_core
 
